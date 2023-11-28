@@ -20,6 +20,8 @@ check-manifest==0.49
     # via vcf2ldif (pyproject.toml)
 click==8.1.7
     # via black
+colorama==0.4.6
+    # via vcf2ldif (pyproject.toml)
 coverage[toml]==7.3.2
     # via pytest-cov
 dill==0.3.7

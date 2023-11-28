@@ -4,6 +4,8 @@
 #
 #    pip-compile
 #
+colorama==0.4.6
+    # via vcf2ldif (pyproject.toml)
 python-dateutil==2.8.2
     # via vobject
 six==1.16.0

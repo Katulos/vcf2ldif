@@ -21,9 +21,13 @@ classifiers = [
 ]
 requires-python = ">=3.8.1"
 dependencies = [
-    "vobject",
+    "colorama==0.4.6",
+    "vobject==0.9.6.1",
 ]
 dynamic = ["version"]
+
+[project.scripts]
+vcf2ldif= "vcf2ldif.__main__:main"
 
 [project.optional-dependencies]
 spark = [
@@ -69,8 +73,29 @@ recursive = true
 targets = "src"
 
 [tool.black]
-line-length = 120
+line-length = 79
 fast = true
+target-version = ["py38"]
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | \venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+  | foo.py           # also separately exclude a file named foo.py in
+                     # the root of the project
+)
+'''
 
 [tool.coverage.run]
 branch = true
@@ -79,7 +104,7 @@ branch = true
 fail_under = 100
 
 [tool.flake8]
-max-line-length = 120
+max-line-length = 79
 select = "F,E,W,B,B901,B902,B903"
 exclude = [
     ".eggs",
@@ -99,6 +124,15 @@ ignore = [
     "W503",
     "E203"
 ]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = "True"
+force_grid_wrap = 0
+use_parentheses = "True"
+ensure_newline_before_comments = "True"
+line_length = 79
 
 [tool.pyright]
 include = ["src"]

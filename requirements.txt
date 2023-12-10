@@ -6,7 +6,7 @@
 #
 click==8.1.7
     # via vcf2ldif (pyproject.toml)
-importlib-metadata==6.7.0
+importlib-metadata==7.0.0
     # via click
 phonenumbers==8.13.26
     # via vcf2ldif (pyproject.toml)

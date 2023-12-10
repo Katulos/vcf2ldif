@@ -1,0 +1,35 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Doe;John;;;
+FN:John Doe
+ORG:Example.com Inc.;
+TITLE:Imaginary test person
+EMAIL;type=INTERNET;type=WORK;type=pref:johnDoe@example.org
+TEL;type=WORK;type=pref:+1(87)582-9833
+TEL;type=CELL:+1(235)223-4573
+TEL;type=HOME:+1(6010)640-4100
+TEL;type=WORK:+1(2986)486-0582
+ADR;type=WORK:;;2 Example Avenue;Anytown;NY;01111;USA
+ADR;type=HOME;type=pref:;;3 Acacia Avenue;Newtown;MA;02222;USA
+NOTE:John Doe has a long and varied history\, being documented on more police files that anyone else. Reports of his death are alas numerous.
+URL;type=pref:http\://www.example/com/doe
+CATEGORIES:Work,Test group
+END:VCARD
+
+BEGIN:VCARD
+VERSION:3.0
+N:Smith;Jane;;;
+FN:Jane Smith
+ORG:Example1.com Inc.;
+TITLE:Imaginary test1 person
+EMAIL;type=INTERNET;type=WORK;type=pref:JaneSmith@example.org
+TEL;type=WORK;type=pref:+1(3867)277-2536
+TEL;type=CELL:+1(886)888-6421
+TEL;type=HOME:+1(818)471-2388
+TEL;type=WORK:+1(658)958-7346
+ADR;type=WORK:;;3 Example Avenue;Anytown;NY;01111;USA
+ADR;type=HOME;type=pref:;;4 Acacia Avenue;Newtown;MA;02222;USA
+NOTE:John1 Doe1 has a long and varied history\, being documented on more police files that anyone else. Reports of his death are alas numerous.
+URL;type=pref:http\://www.example/com/doe
+CATEGORIES:Work,Test group
+END:VCARD

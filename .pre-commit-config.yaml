@@ -1,3 +1,11 @@
+---
+exclude: |
+  (?x)
+  ^README\.md$|
+  # Repos using Sphinx to generate docs don't need prettying
+  ^docs/_templates/.*\.html$|
+  # You don't usually want a bot to modify your legal texts
+  (LICENSE.*|COPYING.*)
 ci:
   autoupdate_commit_msg: "chore: update pre-commit hooks"
   autofix_commit_msg: "style: pre-commit fixes"
@@ -20,7 +28,9 @@ repos:
         args:
           - "--extra=test"
           - "--output-file=requirements-test.txt"
+          - "--resolver=backtracking"
         files: ^pyproject\.(toml)$
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
     hooks:
@@ -62,6 +72,24 @@ repos:
             "--remove-duplicate-keys",
           ]
 
+  - repo: https://github.com/PyCQA/pylint
+    rev: v2.17.7
+    hooks:
+      - id: pylint
+        name: pylint with optional checks
+        additional_dependencies:
+          [
+            "click<8.1.0",
+            "phonenumbers==8.13.26",
+            "vobject==0.9.6.1",
+          ]
+        args:
+          [
+            "--rcfile=pyproject.toml",
+          ]
+        exclude: ^docs/
+        verbose: true
+
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:
@@ -72,6 +100,7 @@ repos:
     rev: v1.4.0
     hooks:
       - id: yesqa
+
   - repo: https://github.com/PyCQA/flake8
     rev: 5.0.4
     hooks:
@@ -79,8 +108,7 @@ repos:
         name: flake8 except __init__.py
         exclude: |
           (?x)(
-              /__init__\.py$|
-              ^migrations/
+              /__init__\.py$
           )
         args: ["--extend-ignore=E203"] # ignore whitespace before ':'
         additional_dependencies: ["flake8-bugbear"]
@@ -91,7 +119,7 @@ repos:
         additional_dependencies: ["flake8-bugbear"]
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 5.11.5
     hooks:
       - id: isort
         args: ["--settings", "pyproject.toml", "-a", "from __future__ import annotations"]

@@ -1,0 +1,34 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Doe;John;;;
+FN:John Doe
+ORG:Example.com Inc.;
+TITLE:Imaginary test person
+EMAIL;type=INTERNET;type=WORK;type=pref:johnDoe@example.org
+TEL;type=WORK;type=pref:+1 617 555 1212
+TEL;type=CELL:+1 781 555 1212
+TEL;type=HOME:+1 202 555 1212
+TEL;type=WORK:+1 (617) 555-1234
+ADR;type=WORK:;;2 Example Avenue;Anytown;NY;01111;USA
+ADR;type=HOME;type=pref:;;3 Acacia Avenue;Newtown;MA;02222;USA
+NOTE:John Doe has a long and varied history\, being documented on more police files that anyone else. Reports of his death are alas numerous.
+URL;type=pref:http\://www.example/com/doe
+CATEGORIES:Work,Test group
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Doe1;John1;;;
+FN:John1 Doe1
+ORG:Example1.com Inc.;
+TITLE:Imaginary test1 person
+EMAIL;type=INTERNET;type=WORK;type=pref:johnDoe1@example.org
+TEL;type=WORK;type=pref:+1 617 555 1213
+TEL;type=CELL:+1 781 555 1213
+TEL;type=HOME:+1 202 555 1213
+TEL;type=WORK:+1 (617) 555-1235
+ADR;type=WORK:;;3 Example Avenue;Anytown;NY;01111;USA
+ADR;type=HOME;type=pref:;;4 Acacia Avenue;Newtown;MA;02222;USA
+NOTE:John1 Doe1 has a long and varied history\, being documented on more police files that anyone else. Reports of his death are alas numerous.
+URL;type=pref:http\://www.example/com/doe
+CATEGORIES:Work,Test group
+END:VCARD

@@ -1,0 +1,66 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Python: Run vcf2ldif",
+            "type": "python",
+            "request": "launch",
+            "noDebug": true,
+            "python": "${command:python.interpreterPath}",
+            "console": "integratedTerminal",
+            "module": "vcf2ldif",
+            "args": [
+                "-i",
+                "${workspaceRoot}/tests/test.vcf",
+                "-r",
+                "ou=adressbook,dc=example,dc=com"
+            ],
+            "cwd": "${workspaceRoot}/src",
+        },
+        {
+            "name": "Python: Debug vcf2ldif",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "stopOnPoints": true,
+            "python": "${command:python.interpreterPath}",
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "module": "vcf2ldif",
+            "args": [
+                "-i",
+                "${workspaceRoot}/tests/test.vcf",
+                "-r",
+                "ou=adressbook,dc=example,dc=com"
+            ],
+            "cwd": "${workspaceRoot}/src",
+            "debugOptions": [
+                "RedirectOutput",
+            ]
+        },
+        {
+            "name": "Python: Debug Tests",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "purpose": [
+                "debug-test"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "PYTEST_ADDOPTS": "--no-cov -n0 --dist no"
+            }
+        },
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "stopOnPoints": true,
+            "python": "${command:python.interpreterPath}",
+            "program": "${file}",
+            "console": "internalConsole",
+        },
+    ]
+}

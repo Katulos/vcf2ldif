@@ -56,7 +56,7 @@ gitdb==4.0.11
     # via gitpython
 gitpython==3.1.40
     # via bandit
-identify==2.5.24
+identify==2.5.33
     # via pre-commit
 importlib-metadata==4.2.0
     # via

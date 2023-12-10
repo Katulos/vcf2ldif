@@ -360,7 +360,7 @@ overgeneral-exceptions= [
 ]
 
 [tool.bumpversion]
-current_version = "0.0.0"
+current_version = "0.0.1"
 commit = true
 tag = false
 message = "Bump version: {current_version} -> {new_version}"

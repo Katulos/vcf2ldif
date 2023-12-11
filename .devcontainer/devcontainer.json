@@ -21,7 +21,8 @@
                 "ms-vsliveshare.vsliveshare",
                 "ryanluker.vscode-coverage-gutters",
                 "bungcip.better-toml",
-                "Codeium.codeium"
+                "Codeium.codeium",
+                "github.vscode-github-actions"
             ],
             "settings": {
                 "python.defaultInterpreterPath": "/usr/local/bin/python",

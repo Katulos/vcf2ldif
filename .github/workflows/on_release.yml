@@ -14,16 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
         matrix:
-            python-version: [3.7, 3.8, 3.9, 3.10, 3.11]
+            python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"] # quotation marks are mandatory
     env:
-        PYTHONUSING_COVERAGE: "3.9"
+      PYTHONUSING_COVERAGE: "3.9"
 
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
             python-version: ${{ matrix.python-version }}
 
@@ -36,15 +36,22 @@ jobs:
           make tox
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        token: ${{ secrets.CODECOV_TOKEN }}
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         if: contains(env.USING_COVERAGE, matrix.python-version)
         with:
             fail_ci_if_error: true
 
-      - name: Publish to PyPi
+  publish:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Publish Python 🐍 distribution 📦 to PyPI and PyPI
+
         env:
-            TWINE_USERNAME: __token__
-            TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           make publish

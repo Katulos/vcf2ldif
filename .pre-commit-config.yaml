@@ -16,12 +16,15 @@ repos:
     hooks:
       - id: pip-compile
         name: pip-compile requirements.txt
+        args:
+          - "--resolver=backtracking"
         files: ^(pyproject\.toml)$
       - id: pip-compile
         name: pip-compile requirements-dev.txt
         args:
           - "--extra=dev"
           - "--output-file=requirements-dev.txt"
+          - "--resolver=backtracking"
         files: ^pyproject\.(toml)$
       - id: pip-compile
         name: pip-compile requirements-test.txt

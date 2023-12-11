@@ -1,9 +1,17 @@
 name: Python CI
 on:
   push:
-    branches: [ main ]
+    branches:
+      - master
+      - main
+      - "releases/**"
+      - "!releases/**-alpha"
   pull_request:
-    branches: [ main ]
+    branches:
+      - master
+      - main
+      - "releases/**"
+      - "!releases/**-alpha"
   release:
     types: [created]
   workflow_dispatch:

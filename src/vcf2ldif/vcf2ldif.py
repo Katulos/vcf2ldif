@@ -72,7 +72,17 @@ def main(
     output_file: str = None,
     format_number: str = None,
 ):
-    """Convert vCards to ldif"""
+    """
+    vCard to ldif converter
+
+    This tool is designed to convert *.vcf (vCard) contact files to *.ldif
+    file, for further creation of shared phone books on LDAP server.
+
+    You can import the resulting ldif file into your LDAP server
+    (e.g. OpenLDAP) with the following command:
+
+    ldapmodify -c -D "cn=admin,dc=example,dc=com" -W -f output_file.ldif
+    """
     ldif_map = []
     format_mapping = {
         "e164": phonenumbers.PhoneNumberFormat.E164,

@@ -1,0 +1,48 @@
+name: on_develop
+
+on:
+  push:
+    branches:
+      - develop
+      - dev
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            python-version: [3.7, 3.8, 3.9, 3.10, 3.11]
+    env:
+        PYTHONUSING_COVERAGE: "3.9"
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+            python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          make deps
+
+      - name: Run tox
+        run: |
+          make tox
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        token: ${{ secrets.CODECOV_TOKEN }}
+        if: contains(env.USING_COVERAGE, matrix.python-version)
+        with:
+            fail_ci_if_error: true
+
+      - name: Publish to PyPi
+        env:
+            TWINE_USERNAME: __token__
+            TWINE_PASSWORD: ${{ secrets.TEST_PYPI_PASSWORD }}
+        run: |
+          make publish-test

@@ -1,13 +1,13 @@
 [build-system]
-requires = ["flit"]
-build-backend = "flit.buildapi"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
 [project]
 name =  "vcf2ldif"
 authors = [
     {name = "Katulos", email = "katulos@protonmail.com"},
 ]
-description = ""
+description = "This tool is designed to convert *.vcf (vCard) contact files to *.ldif file, for further creation of shared phone books on LDAP server."
 readme = "README.md"
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -32,9 +32,6 @@ dynamic = ["version"]
 vcf2ldif= "vcf2ldif.vcf2ldif:main"
 
 [project.optional-dependencies]
-spark = [
-    "pyspark>=3.0.0"
-]
 test = [
     "bandit[toml]==1.7.5",
     "black==23.3.0",
@@ -56,13 +53,13 @@ test = [
     "shellcheck-py==0.9.0.2"
 ]
 dev = [
-    "sphinx==5.3.0",
     "bump-my-version==0.11.0",
     "pip-tools==6.14.0",
 ]
 
 [project.urls]
-Documentation = "https://github.com/katulos/vcf2ldif/tree/main#readme"
+Documentation = "https://github.com/katulos/vcf2ldif/tree/master#readme"
+Home = "https://github.com/katulos/vcf2ldif"
 Source = "https://github.com/katulos/vcf2ldif"
 Tracker = "https://github.com/katulos/vcf2ldif/issues"
 
@@ -163,40 +160,29 @@ pythonpath = [
 testpaths = "tests"
 junit_family = "xunit2"
 markers = [
-    "integration: marks as integration test",
-    "notebooks: marks as notebook test",
-    "gpu: marks as gpu test",
-    "spark: marks tests which need Spark",
-    "slow: marks tests as slow",
-    "unit: fast offline tests",
+   "notebooks: marks as notebook test",
+   "gpu: marks as gpu test",
+   "slow: marks tests as slow",
+   "unit: fast offline tests",
 ]
 
 [tool.tox]
 legacy_tox_ini = """
+[gh-actions]
+python =
+    3.7: py37
+    3.8: py38
+    3.9: py39
+    3.10: py310
+    3.11: py311
+
 [tox]
-envlist = py, integration, spark, all
+isolated_build = True
+envlist = py37, py38, py39, py310, py311
 
 [testenv]
-commands =
-    pytest -m "not integration and not spark" {posargs}
-
-[testenv:integration]
-commands =
-    pytest -m "integration" {posargs}
-
-[testenv:spark]
-extras = spark
-setenv =
-       PYSPARK_DRIVER_PYTHON = {envpython}
-       PYSPARK_PYTHON = {envpython}
-commands =
-    pytest -m "spark" {posargs}
-
-[testenv:all]
-extras = all
-setenv =
-       PYSPARK_DRIVER_PYTHON = {envpython}
-       PYSPARK_PYTHON = {envpython}
+allowlist_externals =
+    pytest
 commands =
     pytest {posargs}
 """
@@ -297,7 +283,7 @@ check-str-concat-over-line-jumps="no"
 
 [tool.pylint.'TYPECHECK']
 contextmanager-decorators="contextlib.contextmanager"
-generated-members="numpy.*,np.*,pyspark.sql.functions,collect_list"
+generated-members="numpy.*,np.*,collect_list"
 ignore-mixin-members="yes"
 ignore-none="yes"
 ignore-on-opaque-inference="yes"
@@ -360,7 +346,7 @@ overgeneral-exceptions= [
 ]
 
 [tool.bumpversion]
-current_version = "0.0.1"
+current_version = "0.0.2"
 commit = true
 tag = false
 message = "Bump version: {current_version} -> {new_version}"

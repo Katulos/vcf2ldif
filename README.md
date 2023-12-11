@@ -1,5 +1,12 @@
 # vCard to ldif converter
 
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/vcf2ldif?logo=pypi)
+![PyPI - Version](https://img.shields.io/pypi/v/vcf2ldif?logo=pypi)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/vcf2ldif?logo=pypi)
+![PyPI - License](https://img.shields.io/pypi/l/vcf2ldif?logo=pypi)
+![release](https://github.com/Katulos/vcf2ldif/actions/workflows/on_release.yml/badge.svg)
+![develop](https://github.com/Katulos/vcf2ldif/actions/workflows/on_develop.yml/badge.svg?branch=develop)
+[![codecov](https://codecov.io/gh/Katulos/vcf2ldif/graph/badge.svg?token=XG6VSRHY3B)](https://codecov.io/gh/Katulos/vcf2ldif)
 
 This tool is designed to convert `*.vcf` (vCard) contact files to `*.ldif` file, for further creation of shared phone books on `LDAP` server.
 

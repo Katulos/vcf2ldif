@@ -16,7 +16,7 @@ jobs:
         matrix:
             python-version: [3.7, 3.8, 3.9, 3.10, 3.11]
     env:
-        PYTHONUSING_COVERAGE: "3.9"
+      PYTHONUSING_COVERAGE: "3.9"
 
     steps:
       - name: Checkout sources
@@ -45,7 +45,7 @@ jobs:
 
       - name: Publish to PyPi
         env:
-            TWINE_USERNAME: __token__
-            TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           make publish

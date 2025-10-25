@@ -28,7 +28,7 @@ When converting, you can also format phone numbers according to the following st
 
 * e164 (e.g.: `+18868886421`) by adding the option `--format-number e164`
 * international (e.g.: `+1 886-888-6421`) by adding the option `--format-number international`
-* national (e.g.: (e.g.: `(886) 888-6421`) by adding the option `--format-number rnational`
+* national (e.g.: (e.g.: `(886) 888-6421`) by adding the option `--format-number national`
 
 You can learn more by invoking the command with the `--help` option
 ```

@@ -3,32 +3,36 @@ name: Develop
 on:
   push:
     branches:
-      - develop
       - dev
+      - develop
+    paths:
+      - "**/*.py"
+      - ".github/workflows/develop.yml"
+  pull_request:
+    branches:
+      - dev
+      - develop
+    paths:
+      - "**/*.py"
+      - ".github/workflows/develop.yml"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-        matrix:
-            python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"] # quotation marks are mandatory
-    env:
-      PYTHONUSING_COVERAGE: "3.9"
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
         with:
-            python-version: ${{ matrix.python-version }}
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
-        run: |
-          make deps
+        uses: excitedleigh/setup-nox@v2.0.0
 
-      - name: Run tox
-        run: |
-          make tox
+      - run: nox

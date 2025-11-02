@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import pytest
 import vobject
 
@@ -7,7 +5,7 @@ from vcf2ldif import vcf2ldif
 
 
 def test_get_cn():
-    """Testing get_cn function"""
+    """Testing get_cn function."""
     # Test case 1: vCard with common name "John Doe"
     vcard1 = vobject.vCard()
     vcard1.add("fn").value = "John Doe"
@@ -44,10 +42,10 @@ def test_get_given_name():
 
     # Test case 4: vCard without 'n' attribute
     vcard4 = vobject.vCard()
-    with pytest.raises(Exception) as attre:
+    with pytest.raises(Exception) as attr:
         vcf2ldif.get_given_name(vcard4)
-    assert attre.type == AttributeError
-    assert str(attre.value) == "n"
+    assert attr.type == AttributeError
+    assert str(attr.value) == "n"
 
 
 def test_get_phone(capsys):
@@ -85,10 +83,10 @@ def test_get_phone(capsys):
     # Test case 4: vCard with no telephone numbers
     vcard4 = vobject.vCard()
     vcard4.type_param = "CELL"
-    with pytest.raises(Exception) as attre:
+    with pytest.raises(Exception) as attr:
         vcf2ldif.get_phone(vcard4, vcard4.type_param)
-    assert attre.type == KeyError
-    assert str(attre.value) == "'tel'"
+    assert attr.type == KeyError
+    assert str(attr.value) == "'tel'"
 
 
 def test_get_org_with_org_attribute():
@@ -123,7 +121,7 @@ def test_no_family_name():
     vcard = vobject.vCard()
     vcard.add("n").value = "John"
     # assert vcf2ldif.get_sn(vcard) == "John"
-    with pytest.raises(Exception) as attre:
+    with pytest.raises(Exception) as attr:
         vcf2ldif.get_sn(vcard)
-    assert attre.type == AttributeError
-    assert str(attre.value) == "'str' object has no attribute 'family'"
+    assert attr.type == AttributeError
+    assert str(attr.value) == "'str' object has no attribute 'family'"

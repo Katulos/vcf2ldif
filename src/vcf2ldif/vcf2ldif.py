@@ -1,4 +1,5 @@
-"""vcf2ldif"""
+"""vcf2ldif."""
+
 from __future__ import annotations
 
 import re
@@ -10,17 +11,17 @@ import vobject
 
 
 def get_cn(vcard: vobject.vCard) -> str:
-    """Returns the common name of the vCard"""
+    """Returns the common name of the vCard."""
     return vcard.fn.value
 
 
 def get_given_name(vcard: vobject.vCard) -> str:
-    """Returns the given name of the vCard"""
+    """Returns the given name of the vCard."""
     return vcard.n.value.given
 
 
 def get_phone(vcard: vobject.vCard, phone_type: str) -> str | None:
-    """Returns the mobile number of the vCard"""
+    """Returns the mobile number of the vCard."""
     phone_type = phone_type.lower()
     for tel in vcard.contents["tel"]:
         if tel.type_param.lower() == phone_type:
@@ -29,7 +30,7 @@ def get_phone(vcard: vobject.vCard, phone_type: str) -> str | None:
 
 
 def get_org(vcard: vobject.vCard) -> str:
-    """Returns the organization name of the vCard"""
+    """Returns the organization name of the vCard."""
     if hasattr(vcard, "org"):
         org = re.split(":|\n", vcard.org.serialize().strip())
         return org[1]
@@ -37,7 +38,7 @@ def get_org(vcard: vobject.vCard) -> str:
 
 
 def get_sn(vcard: vobject.vCard) -> str:
-    """Returns the family name of the vCard"""
+    """Returns the family name of the vCard."""
     if vcard.n.value.family:
         sn_str = vcard.n.value.family
     else:
@@ -73,7 +74,7 @@ def main(
     format_number: str = None,
 ):
     """
-    vCard to ldif converter
+    vCard to ldif converter.
 
     This tool is designed to convert *.vcf (vCard) contact files to *.ldif
     file, for further creation of shared phone books on LDAP server.
@@ -121,7 +122,7 @@ def main(
                     **({"o": org} if org else {}),
                     "sn": get_sn(vcard),
                     "uid": vcard.uid.value,
-                }
+                },
             )
     if output_file:
         with open(output_file, "w", encoding="utf-8") as target_file:

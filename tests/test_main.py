@@ -53,10 +53,13 @@ def test_main_without_output_file(cli_runner):
         f.write(get_vcard())
 
     result = cli_runner.invoke(
-        main, ["--input-file", input_file, "--root-dn", root_dn]
+        main,
+        ["--input-file", input_file, "--root-dn", root_dn],
     )
 
-    assert "dn: cn=John Doe,ou=addressbook,dc=mydomain,dc=com" in result.output
+    assert (
+        "dn: cn=John Doe,ou=addressbook,dc=mydomain,dc=com" in result.output
+    )
     assert "changetype: add" in result.output
     assert "objectClass: inetOrgPerson" in result.output
     assert "cn: John Doe" in result.output

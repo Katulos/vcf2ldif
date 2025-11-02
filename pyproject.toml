@@ -1,60 +1,31 @@
-[build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
-
 [project]
 name =  "vcf2ldif"
-authors = [
-    {name = "Katulos", email = "katulos@protonmail.com"},
-]
 description = "This tool is designed to convert *.vcf (vCard) contact files to *.ldif file, for further creation of shared phone books on LDAP server."
+dynamic = ["version"]
+authors = [
+    { name = "Katulos", email = "123748719+Katulos@users.noreply.github.com" }
+]
+maintainers = [
+    { name = "Katulos", email = "123748719+Katulos@users.noreply.github.com"}
+]
 readme = "README.md"
+license = { text = "MIT" }
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11"
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
-requires-python = ">=3.7.0"
+requires-python = ">=3.8"
 dependencies = [
-    "click==8.1.7",
-    "phonenumbers==8.13.26",
-    "vobject==0.9.6.1",
-]
-dynamic = ["version"]
-
-[project.scripts]
-vcf2ldif= "vcf2ldif.vcf2ldif:main"
-
-[project.optional-dependencies]
-test = [
-    "bandit[toml]==1.7.5",
-    "black==23.3.0",
-    "check-manifest==0.49",
-    "flake8-bugbear==23.3.12",
-    "flake8-docstrings",
-    "flake8-formatter_junit_xml",
-    "flake8",
-    "flake8-pyproject",
-    "pre-commit==2.21.0",
-    "pylint==2.17.7",
-    "pylint_junit",
-    "pytest-cov==4.0.0",
-    "pytest-mock<3.10.1",
-    "pytest-runner",
-    "pytest==7.3.1",
-    "pytest-github-actions-annotate-failures",
-    "pytest_click==1.1.0",
-    "shellcheck-py==0.9.0.2"
-]
-dev = [
-    "bump-my-version==0.11.0",
-    "pip-tools==6.14.0",
+    "click>=8.1.8",
+    "phonenumbers>=9.0.17",
+    "vobject>=0.9.9",
 ]
 
 [project.urls]
@@ -63,296 +34,15 @@ Home = "https://github.com/katulos/vcf2ldif"
 Source = "https://github.com/katulos/vcf2ldif"
 Tracker = "https://github.com/katulos/vcf2ldif/issues"
 
-[tool.flit.module]
-name = "vcf2ldif"
+[tool.setuptools.dynamic]
+version = {attr = "vcf2ldif.__version__"}
 
-[tool.bandit]
-exclude_dirs = ["build","dist","tests","scripts"]
-number = 4
-recursive = true
-targets = "src"
+[project.scripts]
+vcf2ldif= "vcf2ldif.vcf2ldif:main"
 
-[tool.black]
-line-length = 79
-fast = true
-target-version = ["py38"]
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | \venv
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-  | foo.py           # also separately exclude a file named foo.py in
-                     # the root of the project
-)
-'''
+[tool.setuptools.packages.find]
+where = ["src"]
 
-[tool.coverage.run]
-branch = true
-
-[tool.coverage.report]
-fail_under = 100
-
-[tool.flake8]
-max-line-length = 79
-select = "F,E,W,B,B901,B902,B903"
-exclude = [
-    ".eggs",
-    ".git",
-    ".tox",
-    "nssm",
-    "obj",
-    "out",
-    "packages",
-    "pywin32",
-    "tests",
-    "swagger_client"
-]
-ignore = [
-    "E722",
-    "B001",
-    "W503",
-    "E203"
-]
-
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-include_trailing_comma = "True"
-force_grid_wrap = 0
-use_parentheses = "True"
-ensure_newline_before_comments = "True"
-line_length = 79
-
-[tool.pyright]
-include = ["src"]
-exclude = [
-    "**/node_modules",
-    "**/__pycache__",
-]
-venv = "env37"
-
-reportMissingImports = true
-reportMissingTypeStubs = false
-
-pythonVersion = "3.7"
-pythonPlatform = "Linux"
-
-executionEnvironments = [
-  { root = "src" }
-]
-
-[tool.pytest.ini_options]
-addopts = "--cov-report xml:coverage.xml --cov src --cov-fail-under 0 --cov-append -m 'not integration'"
-pythonpath = [
-  "src"
-]
-testpaths = "tests"
-junit_family = "xunit2"
-markers = [
-   "notebooks: marks as notebook test",
-   "gpu: marks as gpu test",
-   "slow: marks tests as slow",
-   "unit: fast offline tests",
-]
-
-[tool.tox]
-legacy_tox_ini = """
-[gh-actions]
-python =
-    3.7: py37
-    3.8: py38
-    3.9: py39
-    3.10: py310
-    3.11: py311
-
-[tox]
-isolated_build = True
-envlist = py37, py38, py39, py310, py311
-
-[testenv]
-allowlist_externals =
-    pytest
-commands =
-    pytest {posargs}
-"""
-
-[tool.pylint]
-extension-pkg-whitelist= [
-    "numpy",
-    "torch",
-    "cv2",
-    "pyodbc",
-    "pydantic",
-    "ciso8601",
-    "netcdf4",
-    "scipy"
-]
-ignore="CVS"
-ignore-patterns="test.*?py,conftest.py"
-init-hook='import sys; sys.setrecursionlimit(8 * sys.getrecursionlimit())'
-jobs=0
-limit-inference-results=100
-persistent="yes"
-suggestion-mode="yes"
-unsafe-load-any-extension="no"
-
-[tool.pylint.'MESSAGES CONTROL']
-enable="c-extension-no-member"
-
-[tool.pylint.'REPORTS']
-evaluation="10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)"
-output-format="text"
-reports="no"
-score="yes"
-
-[tool.pylint.'REFACTORING']
-max-nested-blocks=5
-never-returning-functions="sys.exit"
-
-[tool.pylint.'BASIC']
-argument-naming-style="snake_case"
-attr-naming-style="snake_case"
-bad-names= [
-    "foo",
-    "bar"
-]
-class-attribute-naming-style="any"
-class-naming-style="PascalCase"
-const-naming-style="UPPER_CASE"
-docstring-min-length=-1
-function-naming-style="snake_case"
-good-names= [
-    "i",
-    "j",
-    "k",
-    "ex",
-    "Run",
-    "_"
-]
-include-naming-hint="yes"
-inlinevar-naming-style="any"
-method-naming-style="snake_case"
-module-naming-style="any"
-no-docstring-rgx="^_"
-property-classes="abc.abstractproperty"
-variable-naming-style="snake_case"
-
-[tool.pylint.'FORMAT']
-ignore-long-lines="^\\s*(# )?.*['\"]?<?https?://\\S+>?"
-indent-after-paren=4
-indent-string='    '
-max-line-length=120
-max-module-lines=1000
-single-line-class-stmt="no"
-single-line-if-stmt="no"
-
-[tool.pylint.'LOGGING']
-logging-format-style="old"
-logging-modules="logging"
-
-[tool.pylint.'MISCELLANEOUS']
-notes= [
-    "FIXME",
-    "XXX",
-    "TODO"
-]
-
-[tool.pylint.'SIMILARITIES']
-ignore-comments="yes"
-ignore-docstrings="yes"
-ignore-imports="yes"
-min-similarity-lines=7
-
-[tool.pylint.'SPELLING']
-max-spelling-suggestions=4
-spelling-store-unknown-words="no"
-
-[tool.pylint.'STRING']
-check-str-concat-over-line-jumps="no"
-
-[tool.pylint.'TYPECHECK']
-contextmanager-decorators="contextlib.contextmanager"
-generated-members="numpy.*,np.*,collect_list"
-ignore-mixin-members="yes"
-ignore-none="yes"
-ignore-on-opaque-inference="yes"
-ignored-classes="optparse.Values,thread._local,_thread._local,numpy,torch,swagger_client"
-ignored-modules="numpy,torch,swagger_client,netCDF4,scipy"
-missing-member-hint="yes"
-missing-member-hint-distance=1
-missing-member-max-choices=1
-
-[tool.pylint.'VARIABLES']
-additional-builtins="dbutils"
-allow-global-unused-variables="yes"
-callbacks= [
-    "cb_",
-    "_cb"
-]
-dummy-variables-rgx="_+$|(_[a-zA-Z0-9_]*[a-zA-Z0-9]+?$)|dummy|^ignored_|^unused_"
-ignored-argument-names="_.*|^ignored_|^unused_"
-init-import="no"
-redefining-builtins-modules="six.moves,past.builtins,future.builtins,builtins,io"
-
-[tool.pylint.'CLASSES']
-defining-attr-methods= [
-    "__init__",
-    "__new__",
-    "setUp",
-    "__post_init__"
-]
-exclude-protected= [
-    "_asdict",
-    "_fields",
-    "_replace",
-    "_source",
-    "_make"
-]
-valid-classmethod-first-arg="cls"
-valid-metaclass-classmethod-first-arg="cls"
-
-[tool.pylint.'DESIGN']
-max-args=5
-max-attributes=7
-max-bool-expr=5
-max-branches=12
-max-locals=15
-max-parents=7
-max-public-methods=20
-max-returns=6
-max-statements=50
-min-public-methods=2
-
-[tool.pylint.'IMPORTS']
-allow-wildcard-with-all="no"
-analyse-fallback-blocks="no"
-deprecated-modules="optparse,tkinter.tix"
-
-[tool.pylint.'EXCEPTIONS']
-overgeneral-exceptions= [
-    "builtins.BaseException",
-    "builtins.Exception"
-]
-
-[tool.bumpversion]
-current_version = "0.0.6"
-commit = true
-tag = false
-message = "Bump version: {current_version} -> {new_version}"
-
-[tool.bumpversion.parts.dev]
-values = ["release", "dev"]
-
-[[tool.bumpversion.files]]
-filename = "src/vcf2ldif/__init__.py"
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

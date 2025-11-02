@@ -1,45 +1,62 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.222.0/containers/python-3-miniconda
 {
-    "name": "Python Environment",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
+    "name": "V2T Dev Container",
+    "dockerComposeFile": "docker-compose.yaml",
+    "service": "bot",
+    "remoteUser": "vscode",
+    "workspaceFolder": "/workspace",
     "customizations": {
         "vscode": {
+            "settings": {
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "/bin/bash"
+                    }
+                },
+                "python.terminal.activateEnvInCurrentTerminal": true,
+                "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+                "git.enabled": true,
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "terminal.integrated.inheritEnv": true,
+                "editor.bracketPairColorization.enabled": true,
+                "editor.guides.bracketPairs": "active"
+            },
             "extensions": [
+                "adam-bender.commit-message-editor",
+                "adpyke.vscode-sql-formatter",
+                "charliermarsh.ruff",
+                "christian-kohler.path-intellisense",
+                "codeium.codeium",
+                "dotjoshjohnson.xml",
                 "editorconfig.editorconfig",
-                "github.vscode-pull-request-github",
-                "ms-azuretools.vscode-docker",
+                "formulahendry.auto-close-tag",
+                "formulahendry.auto-rename-tag",
+                "garytyler.darcula-pycharm",
+                "hbenl.vscode-test-explorer",
+                "janisdd.vscode-edit-csv",
+                "littlefoxteam.vscode-python-test-adapter",
+                "mechatroner.rainbow-csv",
+                "mohsen1.prettify-json",
                 "ms-python.python",
                 "ms-python.vscode-pylance",
-                "ms-python.pylint",
-                "ms-python.isort",
-                "ms-python.flake8",
-                "ms-python.black-formatter",
-                "ms-vsliveshare.vsliveshare",
-                "ryanluker.vscode-coverage-gutters",
-                "bungcip.better-toml",
-                "Codeium.codeium",
-                "github.vscode-github-actions"
-            ],
-            "settings": {
-                "python.defaultInterpreterPath": "/usr/local/bin/python",
-                "black-formatter.path": [
-                    "/usr/local/py-utils/bin/black"
-                ],
-                "pylint.path": [
-                    "/usr/local/py-utils/bin/pylint"
-                ],
-                "flake8.path": [
-                    "/usr/local/py-utils/bin/flake8"
-                ],
-                "isort.path": [
-                    "/usr/local/py-utils/bin/isort"
-                ]
-            }
+                "oderwat.indent-rainbow",
+                "redhat.vscode-yaml",
+                "streetsidesoftware.code-spell-checker",
+                "tal7aouy.rainbow-bracket",
+                "yzhang.markdown-all-in-one",
+                "cweijan.vscode-database-client2"
+            ]
         }
     },
-    "onCreateCommand": "pre-commit install-hooks"
+    "postCreateCommand": {
+        "setupEnvironment": "uv python install 3.10 3.11 3.12 3.13 && rm -rf ${containerWorkspaceFolder}/.venv && uv venv --python 3.10  && sudo chown -R $(whoami): ${containerWorkspaceFolder}/.venv && uv pip install -e ."
+    },
+    "remoteEnv": {
+        "PATH": "${containerWorkspaceFolder}/.venv/bin:${containerEnv:PATH}",
+        "WORKSPACE": "/workspace",
+        "UV_LINK_MODE": "copy"
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/va-h/devcontainers-features/uv:1": {}
+    }
 }

@@ -1,0 +1,17 @@
+services:
+  app:
+    env_file:
+      - .env
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        - WORKSPACE=${WORKSPACE}
+    command: sleep infinity
+    networks:
+      - default
+    volumes:
+      - ..:${WORKSPACE}:cached
+
+networks:
+  default:

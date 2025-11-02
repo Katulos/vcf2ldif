@@ -70,8 +70,8 @@ jobs:
           root_options: "-v -c .releaserc.toml"
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Publish distribution to PyPI
-      #   if: steps.release.outputs.released == 'true'
-      #   uses: pypa/gh-action-pypi-publish@release/v1
-      #   with:
-      #     password: ${{ secrets.PYPI_API_TOKEN }}
+      - name: Publish distribution to PyPI
+        if: steps.release.outputs.released == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_PASSWORD }}

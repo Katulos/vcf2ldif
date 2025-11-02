@@ -1,5 +1,5 @@
 {
-    "name": "V2T Dev Container",
+    "name": "Dev Container",
     "dockerComposeFile": "docker-compose.yaml",
     "service": "bot",
     "remoteUser": "vscode",
